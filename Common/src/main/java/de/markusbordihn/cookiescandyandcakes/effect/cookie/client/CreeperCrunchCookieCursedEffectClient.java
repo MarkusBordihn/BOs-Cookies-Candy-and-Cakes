@@ -27,6 +27,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.phys.Vec3;
@@ -83,7 +84,7 @@ public class CreeperCrunchCookieCursedEffectClient implements ClientEffectInterf
 
     // Spawn 4 creepers in a circle around the player
     for (int i = 0; i < 4; i++) {
-      Creeper creeper = EntityType.CREEPER.create(level);
+      Creeper creeper = EntityType.CREEPER.create(level, EntitySpawnReason.COMMAND);
       if (creeper != null) {
         double angle = (Math.PI / 2) * i;
         double offsetX = Math.cos(angle) * CREEPER_SPAWN_DISTANCE;

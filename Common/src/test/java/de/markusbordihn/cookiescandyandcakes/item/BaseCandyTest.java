@@ -21,6 +21,9 @@ package de.markusbordihn.cookiescandyandcakes.item;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import net.minecraft.SharedConstants;
+import net.minecraft.server.Bootstrap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,6 +31,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayName("BaseCandy Tests")
 class BaseCandyTest {
+
+  @BeforeAll
+  static void setUp() {
+    SharedConstants.tryDetectVersion();
+    Bootstrap.bootStrap();
+  }
 
   @Test
   @DisplayName("Throw timing constants should be in correct order")

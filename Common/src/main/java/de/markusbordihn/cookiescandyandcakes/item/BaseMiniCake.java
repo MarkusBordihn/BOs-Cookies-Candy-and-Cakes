@@ -19,20 +19,31 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.data.minicakes.MiniCakeType;
-import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public abstract class BaseMiniCake extends Item {
 
   protected final MiniCakeType miniCakeType;
 
   protected BaseMiniCake(MiniCakeType miniCakeType) {
-    super(new Item.Properties().food(buildFoodProperties(miniCakeType)));
+    super(
+        new Item.Properties()
+            .food(buildFoodProperties(miniCakeType))
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, miniCakeType.getId()))));
     this.miniCakeType = miniCakeType;
   }
 
@@ -43,10 +54,11 @@ public abstract class BaseMiniCake extends Item {
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    tooltipComponents.add(
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc")
             .withStyle(net.minecraft.ChatFormatting.GRAY));
   }

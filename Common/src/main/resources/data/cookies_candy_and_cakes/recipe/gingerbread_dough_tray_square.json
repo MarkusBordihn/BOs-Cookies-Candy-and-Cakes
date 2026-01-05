@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "cookies_candy_and_cakes:gingerbread_dough"
-    },
+    "cookies_candy_and_cakes:gingerbread_dough",
     {
       "item": "cookies_candy_and_cakes:rolling_pin",
       "components": {

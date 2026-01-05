@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "B": {
-      "item": "minecraft:melon_slice"
-    },
-    "W": {
-      "item": "minecraft:water_bucket"
-    }
+    "S": "minecraft:sugar",
+    "B": "minecraft:melon_slice",
+    "W": "minecraft:water_bucket"
   },
   "result": {
     "id": "cookies_candy_and_cakes:melon_candy",

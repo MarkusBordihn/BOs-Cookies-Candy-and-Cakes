@@ -23,7 +23,7 @@ import de.markusbordihn.cookiescandyandcakes.data.cookies.CookieType;
 import de.markusbordihn.cookiescandyandcakes.effect.cookie.CookieClientEffectManager;
 import de.markusbordihn.cookiescandyandcakes.effect.cookie.CookieServerEffectManager;
 import de.markusbordihn.cookiescandyandcakes.item.BaseCookie;
-import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -32,6 +32,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public abstract class BaseSpecialCookie extends BaseCookie
@@ -57,7 +58,7 @@ public abstract class BaseSpecialCookie extends BaseCookie
 
   @Override
   public void applyEffects(Level level, LivingEntity entity) {
-    if (!level.isClientSide) {
+    if (!level.isClientSide()) {
       spawnParticles(level, entity);
       if (entity instanceof ServerPlayer serverPlayer) {
         CookieServerEffectManager.applyCookieEffect(serverPlayer, cookieType);
@@ -105,11 +106,13 @@ public abstract class BaseSpecialCookie extends BaseCookie
 
   @Override
   public void appendHoverText(
-      ItemStack stack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      ItemStack itemStack,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    BaseSpecialItem.super.appendHoverText(stack, tooltipComponents, tooltipFlag);
+    BaseSpecialItem.super.appendHoverText(
+        itemStack, tooltipContext, tooltipDisplay, tooltipConsumer, tooltipFlag);
   }
 
   @Override

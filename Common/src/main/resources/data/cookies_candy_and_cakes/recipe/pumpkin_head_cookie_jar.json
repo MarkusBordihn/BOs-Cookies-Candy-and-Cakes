@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "C": {
-      "tag": "cookies_candy_and_cakes:cookies"
-    },
-    "W": {
-      "tag": "minecraft:wooden_slabs"
-    },
-    "P": {
-      "item": "minecraft:carved_pumpkin"
-    }
+    "C": "#cookies_candy_and_cakes:cookies",
+    "W": "#minecraft:wooden_slabs",
+    "P": "minecraft:carved_pumpkin"
   },
   "result": {
     "id": "cookies_candy_and_cakes:pumpkin_head_cookie_jar",

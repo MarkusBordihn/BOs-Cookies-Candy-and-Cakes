@@ -26,10 +26,8 @@ import de.markusbordihn.cookiescandyandcakes.block.ShulkerBoxCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.SkeletonHeadCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.TntCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockItems;
-import java.util.function.Supplier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -38,40 +36,34 @@ public class ForgeModBlockItems {
   public static final DeferredRegister<Item> BLOCK_ITEMS =
       DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
 
-  private ForgeModBlockItems() {}
-
-  public static void register(final IEventBus eventBus) {
-    BLOCK_ITEMS.register(eventBus);
+  static {
     ModBlockItems.PUMPKIN_HEAD_COOKIE_JAR =
-        registerBlockItem(
+        BLOCK_ITEMS.register(
             PumpkinHeadCookieJarBlock.ID,
             () ->
                 new CookieJarItem(
                     ForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(), new Item.Properties()));
     ModBlockItems.SHULKER_BOX_COOKIE_JAR =
-        registerBlockItem(
+        BLOCK_ITEMS.register(
             ShulkerBoxCookieJarBlock.ID,
             () ->
                 new CookieJarItem(
                     ForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(), new Item.Properties()));
     ModBlockItems.SKELETON_HEAD_COOKIE_JAR =
-        registerBlockItem(
+        BLOCK_ITEMS.register(
             SkeletonHeadCookieJarBlock.ID,
             () ->
                 new CookieJarItem(
                     ForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(), new Item.Properties()));
     ModBlockItems.TNT_COOKIE_JAR =
-        registerBlockItem(
+        BLOCK_ITEMS.register(
             TntCookieJarBlock.ID,
             () -> new CookieJarItem(ForgeModBlocks.TNT_COOKIE_JAR.get(), new Item.Properties()));
     ModBlockItems.GINGERBREAD_BLOCK =
-        registerBlockItem(
+        BLOCK_ITEMS.register(
             "gingerbread_block",
             () -> new BlockItem(ForgeModBlocks.GINGERBREAD_BLOCK.get(), new Item.Properties()));
   }
 
-  private static Supplier<BlockItem> registerBlockItem(
-      final String name, final Supplier<BlockItem> blockItemSupplier) {
-    return BLOCK_ITEMS.register(name, blockItemSupplier);
-  }
+  private ForgeModBlockItems() {}
 }

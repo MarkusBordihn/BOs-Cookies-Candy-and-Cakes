@@ -23,13 +23,14 @@ import de.markusbordihn.cookiescandyandcakes.data.candies.CandyType;
 import de.markusbordihn.cookiescandyandcakes.effect.candy.CandyClientEffectManager;
 import de.markusbordihn.cookiescandyandcakes.effect.candy.CandyServerEffectManager;
 import de.markusbordihn.cookiescandyandcakes.item.BaseCandy;
-import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public abstract class BaseSpecialCandy extends BaseCandy
@@ -46,7 +47,7 @@ public abstract class BaseSpecialCandy extends BaseCandy
 
   @Override
   public void applyEffects(Level level, LivingEntity entity) {
-    if (!level.isClientSide) {
+    if (!level.isClientSide()) {
       if (entity instanceof ServerPlayer serverPlayer) {
         CandyServerEffectManager.applyCandyEffect(serverPlayer, candyType);
       }
@@ -66,10 +67,12 @@ public abstract class BaseSpecialCandy extends BaseCandy
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    BaseSpecialItem.super.appendHoverText(itemStack, tooltipComponents, tooltipFlag);
+    BaseSpecialItem.super.appendHoverText(
+        itemStack, tooltipContext, tooltipDisplay, tooltipConsumer, tooltipFlag);
   }
 
   @Override

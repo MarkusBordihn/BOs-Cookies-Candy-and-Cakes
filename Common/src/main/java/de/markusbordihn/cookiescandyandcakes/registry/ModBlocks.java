@@ -19,12 +19,16 @@
 
 package de.markusbordihn.cookiescandyandcakes.registry;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.GingerCropBlock;
 import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.ShulkerBoxCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.SkeletonHeadCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.TntCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.block.VanillaBeanCropBlock;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -40,52 +44,83 @@ public class ModBlocks {
               .mapColor(MapColor.COLOR_ORANGE)
               .strength(0.3F)
               .sound(SoundType.WOOD)
-              .noOcclusion());
+              .noOcclusion()
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(
+                          Constants.MOD_ID, PumpkinHeadCookieJarBlock.ID))));
   public static final ShulkerBoxCookieJarBlock SHULKER_BOX_COOKIE_JAR =
       new ShulkerBoxCookieJarBlock(
           BlockBehaviour.Properties.of()
               .mapColor(MapColor.COLOR_PURPLE)
               .strength(2.0F)
               .sound(SoundType.STONE)
-              .noOcclusion());
+              .noOcclusion()
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(
+                          Constants.MOD_ID, ShulkerBoxCookieJarBlock.ID))));
   public static final TntCookieJarBlock TNT_COOKIE_JAR =
       new TntCookieJarBlock(
           BlockBehaviour.Properties.of()
               .mapColor(MapColor.FIRE)
               .strength(0.3F)
               .sound(SoundType.GRASS)
-              .noOcclusion());
+              .noOcclusion()
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(Constants.MOD_ID, TntCookieJarBlock.ID))));
   public static final SkeletonHeadCookieJarBlock SKELETON_HEAD_COOKIE_JAR =
       new SkeletonHeadCookieJarBlock(
           BlockBehaviour.Properties.of()
               .mapColor(MapColor.TERRACOTTA_WHITE)
               .strength(0.3F)
               .sound(SoundType.BONE_BLOCK)
-              .noOcclusion());
+              .noOcclusion()
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(
+                          Constants.MOD_ID, SkeletonHeadCookieJarBlock.ID))));
   public static final VanillaBeanCropBlock VANILLA_BEAN_CROP =
       new VanillaBeanCropBlock(
           BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)
               .mapColor(MapColor.PLANT)
-              .noCollission()
+              .noCollision()
               .randomTicks()
               .instabreak()
               .sound(SoundType.CROP)
-              .pushReaction(PushReaction.DESTROY));
+              .pushReaction(PushReaction.DESTROY)
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(Constants.MOD_ID, VanillaBeanCropBlock.ID))));
   public static final GingerCropBlock GINGER_CROP =
       new GingerCropBlock(
           BlockBehaviour.Properties.ofFullCopy(Blocks.CARROTS)
               .mapColor(MapColor.PLANT)
-              .noCollission()
+              .noCollision()
               .randomTicks()
               .instabreak()
               .sound(SoundType.CROP)
-              .pushReaction(PushReaction.DESTROY));
+              .pushReaction(PushReaction.DESTROY)
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(Constants.MOD_ID, GingerCropBlock.ID))));
   public static final Block GINGERBREAD_BLOCK =
       new Block(
           BlockBehaviour.Properties.of()
               .mapColor(MapColor.COLOR_BROWN)
               .strength(0.5F)
-              .sound(SoundType.WOOL));
+              .sound(SoundType.WOOL)
+              .setId(
+                  ResourceKey.create(
+                      Registries.BLOCK,
+                      Identifier.fromNamespaceAndPath(Constants.MOD_ID, "gingerbread_block"))));
 
   private ModBlocks() {}
 }

@@ -21,7 +21,7 @@ package de.markusbordihn.cookiescandyandcakes;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public final class Constants {
 
@@ -35,7 +35,7 @@ public final class Constants {
 
   private Constants() {}
 
-  public static ResourceLocation id(String path) {
-    return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+  public static Identifier id(String path) {
+    return Identifier.fromNamespaceAndPath(MOD_ID, path);
   }
 }

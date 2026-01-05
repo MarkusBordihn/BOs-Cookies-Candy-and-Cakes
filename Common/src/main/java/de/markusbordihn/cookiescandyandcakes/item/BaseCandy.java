@@ -19,24 +19,29 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.data.candies.CandyType;
 import de.markusbordihn.cookiescandyandcakes.entity.ThrownCandy;
 import de.markusbordihn.cookiescandyandcakes.registry.ModEntityTypes;
-import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,19 +65,20 @@ public abstract class BaseCandy extends Item {
   protected final CandyType candyType;
 
   protected BaseCandy(final CandyType candyType) {
-    super(new Item.Properties().food(buildFoodProperties(candyType)).stacksTo(STACK_SIZE));
+    super(
+        new Item.Properties()
+            .food(buildFoodProperties(candyType))
+            .stacksTo(STACK_SIZE)
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, candyType.getId()))));
     this.candyType = candyType;
   }
 
   protected static FoodProperties buildFoodProperties(final CandyType candyType) {
     FoodProperties.Builder builder =
-        new FoodProperties.Builder().nutrition(candyType.getNutrition()).fast();
-    if (candyType.hasEffect()) {
-      builder.effect(
-          new MobEffectInstance(
-              candyType.getEffect(), candyType.getEffectDuration(), candyType.getAmplifier()),
-          candyType.getEffectChance());
-    }
+        new FoodProperties.Builder().nutrition(candyType.getNutrition()).saturationModifier(0.3F);
     return builder.build();
   }
 
@@ -101,10 +107,10 @@ public abstract class BaseCandy extends Item {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+  public InteractionResult use(Level level, Player player, InteractionHand hand) {
     ItemStack itemStack = player.getItemInHand(hand);
     player.startUsingItem(hand);
-    return InteractionResultHolder.consume(itemStack);
+    return InteractionResult.CONSUME;
   }
 
   private boolean shouldEatDirectly(final Player player) {
@@ -129,22 +135,23 @@ public abstract class BaseCandy extends Item {
   }
 
   @Override
-  public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int timeLeft) {
+  public boolean releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int timeLeft) {
     if (!(entity instanceof Player player)) {
-      return;
+      return false;
     }
 
     int useDuration = this.getUseDuration(itemStack, entity);
     int usedTicks = useDuration - timeLeft;
 
     if (usedTicks < THROW_MIN_TICKS || usedTicks >= EAT_START_TICKS) {
-      return;
+      return false;
     }
 
     if (!shouldEatDirectly(player)) {
       float velocity = calculateThrowVelocity(usedTicks);
       throwCandy(level, player, itemStack, velocity);
     }
+    return true;
   }
 
   private float calculateThrowVelocity(final int usedTicks) {
@@ -174,9 +181,10 @@ public abstract class BaseCandy extends Item {
         0.5F,
         0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
 
-    if (!level.isClientSide) {
-      ThrownCandy thrownCandy = new ThrownCandy(ModEntityTypes.THROWN_CANDY.get(), level, player);
-      thrownCandy.setItem(itemStack.copyWithCount(1));
+    if (!level.isClientSide()) {
+      ThrownCandy thrownCandy =
+          new ThrownCandy(
+              ModEntityTypes.THROWN_CANDY.get(), level, player, itemStack.copyWithCount(1));
       thrownCandy.shootFromRotation(
           player, player.getXRot(), player.getYRot(), 0.0F, velocity, THROW_INACCURACY);
       level.addFreshEntity(thrownCandy);
@@ -192,6 +200,15 @@ public abstract class BaseCandy extends Item {
   public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
     if (entity instanceof Player player) {
       player.awardStat(Stats.ITEM_USED.get(this));
+
+      // Apply candy effects since FoodProperties no longer handles them in 1.21.11
+      if (!level.isClientSide() && candyType.hasEffect()) {
+        if (level.getRandom().nextFloat() < candyType.getEffectChance()) {
+          entity.addEffect(
+              new MobEffectInstance(
+                  candyType.getEffect(), candyType.getEffectDuration(), candyType.getAmplifier()));
+        }
+      }
     }
     return super.finishUsingItem(itemStack, level, entity);
   }
@@ -202,17 +219,18 @@ public abstract class BaseCandy extends Item {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack itemStack) {
-    return UseAnim.EAT;
+  public ItemUseAnimation getUseAnimation(ItemStack itemStack) {
+    return ItemUseAnimation.EAT;
   }
 
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
-      TooltipFlag flag) {
-    tooltipComponents.add(
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
+      TooltipFlag tooltipFlag) {
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc")
             .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
   }

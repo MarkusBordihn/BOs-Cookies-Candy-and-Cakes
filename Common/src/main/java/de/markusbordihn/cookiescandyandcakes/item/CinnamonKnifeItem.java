@@ -19,13 +19,18 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
+import de.markusbordihn.cookiescandyandcakes.data.tools.ToolType;
 import de.markusbordihn.cookiescandyandcakes.registry.ModItems;
-import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,6 +39,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -45,7 +51,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 public class CinnamonKnifeItem extends Item {
 
   public CinnamonKnifeItem() {
-    super(new Item.Properties().durability(64));
+    super(
+        new Item.Properties()
+            .durability(64)
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(
+                        Constants.MOD_ID, ToolType.CINNAMON_KNIFE.getId()))));
   }
 
   @Override
@@ -58,7 +71,7 @@ public class CinnamonKnifeItem extends Item {
     if (strippedState.isPresent()) {
       level.playSound(
           context.getPlayer(), blockPos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-      if (!level.isClientSide) {
+      if (!level.isClientSide()) {
         level.setBlock(blockPos, strippedState.get(), 11);
         if (context.getPlayer() instanceof ServerPlayer serverPlayer) {
           CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(
@@ -93,7 +106,7 @@ public class CinnamonKnifeItem extends Item {
           GameEvent.BLOCK_CHANGE,
           blockPos,
           GameEvent.Context.of(context.getPlayer(), strippedState.get()));
-      return InteractionResult.sidedSuccess(level.isClientSide);
+      return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;
   }
@@ -120,10 +133,11 @@ public class CinnamonKnifeItem extends Item {
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    tooltipComponents.add(
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
   }
 }

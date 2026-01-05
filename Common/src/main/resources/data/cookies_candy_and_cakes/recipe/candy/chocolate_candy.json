@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "B": {
-      "item": "minecraft:cocoa_beans"
-    },
-    "W": {
-      "item": "minecraft:water_bucket"
-    }
+    "S": "minecraft:sugar",
+    "B": "minecraft:cocoa_beans",
+    "W": "minecraft:water_bucket"
   },
   "result": {
     "id": "cookies_candy_and_cakes:chocolate_candy",

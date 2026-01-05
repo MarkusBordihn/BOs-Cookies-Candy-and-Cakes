@@ -7,18 +7,10 @@
     " M "
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "H": {
-      "item": "minecraft:wheat"
-    },
-    "B": {
-      "item": "minecraft:prismarine_shard"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    }
+    "S": "minecraft:sugar",
+    "H": "minecraft:wheat",
+    "B": "minecraft:prismarine_shard",
+    "M": "minecraft:milk_bucket"
   },
   "result": {
     "id": "cookies_candy_and_cakes:elder_guardian_cookie",

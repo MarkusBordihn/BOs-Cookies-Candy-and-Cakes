@@ -23,9 +23,10 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.FabricModBlocks;
 import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockEntityTypes;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class FabricModBlockEntities {
@@ -33,8 +34,8 @@ public class FabricModBlockEntities {
   public static final BlockEntityType<CookieJarBlockEntity> COOKIE_JAR_BLOCK_ENTITY =
       Registry.register(
           BuiltInRegistries.BLOCK_ENTITY_TYPE,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, PumpkinHeadCookieJarBlock.ID),
-          BlockEntityType.Builder.of(
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, PumpkinHeadCookieJarBlock.ID),
+          FabricBlockEntityTypeBuilder.create(
                   CookieJarBlockEntity::new,
                   FabricModBlocks.PUMPKIN_HEAD_COOKIE_JAR,
                   FabricModBlocks.SHULKER_BOX_COOKIE_JAR,

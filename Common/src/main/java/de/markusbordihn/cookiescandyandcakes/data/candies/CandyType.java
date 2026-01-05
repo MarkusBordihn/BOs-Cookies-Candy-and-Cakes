@@ -28,16 +28,16 @@ import net.minecraft.world.effect.MobEffects;
 
 public enum CandyType {
   TEST_CANDY(CandyVariant.NORMAL, null, 0),
-  TEST_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.MOVEMENT_SPEED, 0),
-  TEST_CANDY_CURSED(CandyVariant.CURSED, MobEffects.MOVEMENT_SLOWDOWN, 0),
+  TEST_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.SPEED, 0),
+  TEST_CANDY_CURSED(CandyVariant.CURSED, MobEffects.SLOWNESS, 0),
   APPLE_CANDY(CandyVariant.NORMAL, null, 0),
-  APPLE_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.DAMAGE_RESISTANCE, 0),
+  APPLE_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.RESISTANCE, 0),
   APPLE_CANDY_CURSED(CandyVariant.CURSED, MobEffects.WEAKNESS, 0),
   CHORUS_CANDY(CandyVariant.NORMAL, null, 0),
   CHORUS_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.LEVITATION, 0),
-  CHORUS_CANDY_CURSED(CandyVariant.CURSED, MobEffects.CONFUSION, 0),
+  CHORUS_CANDY_CURSED(CandyVariant.CURSED, MobEffects.NAUSEA, 0),
   CHOCOLATE_CANDY(CandyVariant.NORMAL, null, 0),
-  CHOCOLATE_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.DAMAGE_BOOST, 0),
+  CHOCOLATE_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.STRENGTH, 0),
   CHOCOLATE_CANDY_CURSED(CandyVariant.CURSED, MobEffects.HUNGER, 0),
   GLOW_BERRY_CANDY(CandyVariant.NORMAL, null, 0),
   GLOW_BERRY_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.GLOWING, 0),
@@ -46,14 +46,14 @@ public enum CandyType {
   GOLDEN_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.REGENERATION, 1),
   GOLDEN_CANDY_CURSED(CandyVariant.CURSED, MobEffects.POISON, 0),
   MELON_CANDY(CandyVariant.NORMAL, null, 0),
-  MELON_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.HEAL, 0),
-  MELON_CANDY_CURSED(CandyVariant.CURSED, MobEffects.HARM, 0),
+  MELON_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.INSTANT_HEALTH, 0),
+  MELON_CANDY_CURSED(CandyVariant.CURSED, MobEffects.INSTANT_DAMAGE, 0),
   PUMPKIN_CANDY(CandyVariant.NORMAL, null, 0),
   PUMPKIN_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.ABSORPTION, 0),
   PUMPKIN_CANDY_CURSED(CandyVariant.CURSED, MobEffects.UNLUCK, 0),
   SWEET_BERRY_CANDY(CandyVariant.NORMAL, null, 0),
-  SWEET_BERRY_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.MOVEMENT_SPEED, 1),
-  SWEET_BERRY_CANDY_CURSED(CandyVariant.CURSED, MobEffects.MOVEMENT_SLOWDOWN, 1);
+  SWEET_BERRY_CANDY_MYSTIC(CandyVariant.MYSTIC, MobEffects.SPEED, 1),
+  SWEET_BERRY_CANDY_CURSED(CandyVariant.CURSED, MobEffects.SLOWNESS, 1);
 
   private final CandyVariant variant;
   private final Holder<MobEffect> effect;

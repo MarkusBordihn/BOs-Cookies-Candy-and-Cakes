@@ -19,14 +19,21 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.data.cookies.CookieType;
-import java.util.List;
+import java.util.function.Consumer;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 
 public abstract class BaseCookie extends Item {
 
@@ -35,29 +42,43 @@ public abstract class BaseCookie extends Item {
   protected final CookieType cookieType;
 
   protected BaseCookie(CookieType cookieType) {
-    super(new Item.Properties().food(buildFoodProperties(cookieType)).stacksTo(STACK_SIZE));
+    super(
+        new Item.Properties()
+            .food(buildFoodProperties(cookieType))
+            .stacksTo(STACK_SIZE)
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, cookieType.getId()))));
     this.cookieType = cookieType;
   }
 
   protected static FoodProperties buildFoodProperties(CookieType cookieType) {
     FoodProperties.Builder builder =
-        new FoodProperties.Builder().nutrition(cookieType.getNutrition()).fast();
-    if (cookieType.hasEffect()) {
-      builder.effect(
-          new MobEffectInstance(
-              cookieType.getEffect(), cookieType.getEffectDuration(), cookieType.getAmplifier()),
-          cookieType.getEffectChance());
-    }
+        new FoodProperties.Builder().nutrition(cookieType.getNutrition()).saturationModifier(0.3F);
     return builder.build();
+  }
+
+  @Override
+  public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
+    if (!level.isClientSide() && cookieType.hasEffect()) {
+      if (level.getRandom().nextFloat() < cookieType.getEffectChance()) {
+        entity.addEffect(
+            new MobEffectInstance(
+                cookieType.getEffect(), cookieType.getEffectDuration(), cookieType.getAmplifier()));
+      }
+    }
+    return super.finishUsingItem(itemStack, level, entity);
   }
 
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    tooltipComponents.add(
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc")
             .withStyle(net.minecraft.ChatFormatting.DARK_GRAY));
   }

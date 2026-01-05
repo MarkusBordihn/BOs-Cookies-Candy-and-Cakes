@@ -23,7 +23,7 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlocks;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 public class FabricModBlocks {
@@ -31,43 +31,43 @@ public class FabricModBlocks {
   public static final Block PUMPKIN_HEAD_COOKIE_JAR =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, PumpkinHeadCookieJarBlock.ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, PumpkinHeadCookieJarBlock.ID),
           ModBlocks.PUMPKIN_HEAD_COOKIE_JAR);
 
   public static final Block SHULKER_BOX_COOKIE_JAR =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, ShulkerBoxCookieJarBlock.ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, ShulkerBoxCookieJarBlock.ID),
           ModBlocks.SHULKER_BOX_COOKIE_JAR);
 
   public static final Block SKELETON_HEAD_COOKIE_JAR =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, SkeletonHeadCookieJarBlock.ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, SkeletonHeadCookieJarBlock.ID),
           ModBlocks.SKELETON_HEAD_COOKIE_JAR);
 
   public static final Block TNT_COOKIE_JAR =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, TntCookieJarBlock.ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, TntCookieJarBlock.ID),
           ModBlocks.TNT_COOKIE_JAR);
 
   public static final Block VANILLA_BEAN_CROP =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "vanilla_bean_crop"),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "vanilla_bean_crop"),
           ModBlocks.VANILLA_BEAN_CROP);
 
   public static final Block GINGER_CROP =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "ginger_crop"),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "ginger_crop"),
           ModBlocks.GINGER_CROP);
 
   public static final Block GINGERBREAD_BLOCK =
       Registry.register(
           BuiltInRegistries.BLOCK,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "gingerbread_block"),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "gingerbread_block"),
           ModBlocks.GINGERBREAD_BLOCK);
 
   private FabricModBlocks() {}

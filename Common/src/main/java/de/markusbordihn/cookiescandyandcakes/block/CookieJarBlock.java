@@ -30,7 +30,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +43,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -53,7 +52,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class CookieJarBlock extends BaseEntityBlock {
 
-  public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+  public static final Property<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   protected static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
@@ -94,7 +93,7 @@ public abstract class CookieJarBlock extends BaseEntityBlock {
   @Override
   protected InteractionResult useWithoutItem(
       BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-    if (!level.isClientSide
+    if (!level.isClientSide()
         && player instanceof ServerPlayer serverPlayer
         && level.getBlockEntity(pos) instanceof CookieJarBlockEntity cookieJarBlockEntity) {
       openCookieJarMenu(serverPlayer, cookieJarBlockEntity);
@@ -104,20 +103,20 @@ public abstract class CookieJarBlock extends BaseEntityBlock {
   }
 
   @Override
-  protected ItemInteractionResult useItemOn(
+  protected InteractionResult useItemOn(
       ItemStack itemStack,
-      BlockState blockState,
+      BlockState state,
       Level level,
-      BlockPos blockPos,
+      BlockPos pos,
       Player player,
-      InteractionHand interactionHand,
+      InteractionHand hand,
       BlockHitResult hitResult) {
-    if (!level.isClientSide
+    if (!level.isClientSide()
         && player instanceof ServerPlayer serverPlayer
-        && level.getBlockEntity(blockPos) instanceof CookieJarBlockEntity cookieJarBlockEntity) {
+        && level.getBlockEntity(pos) instanceof CookieJarBlockEntity cookieJarBlockEntity) {
       openCookieJarMenu(serverPlayer, cookieJarBlockEntity);
     }
-    return ItemInteractionResult.SUCCESS;
+    return InteractionResult.SUCCESS;
   }
 
   @Override
@@ -126,24 +125,12 @@ public abstract class CookieJarBlock extends BaseEntityBlock {
   }
 
   @Override
-  protected void onRemove(
-      BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-    if (state.getBlock() != newState.getBlock()) {
-      BlockEntity blockEntity = level.getBlockEntity(pos);
-      if (blockEntity != null) {
-        level.removeBlockEntity(pos);
-      }
-      level.updateNeighbourForOutputSignal(pos, this);
-    }
-  }
-
-  @Override
-  public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+  public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
     List<ItemStack> drops = new ArrayList<>();
     BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
     if (blockEntity instanceof CookieJarBlockEntity cookieJarBlockEntity) {
       ItemStack itemStack = new ItemStack(this);
-      cookieJarBlockEntity.saveToItem(itemStack, cookieJarBlockEntity.getLevel().registryAccess());
+      cookieJarBlockEntity.saveToItem(itemStack);
       if (!itemStack.isEmpty()) {
         drops.add(itemStack);
       }
@@ -155,9 +142,14 @@ public abstract class CookieJarBlock extends BaseEntityBlock {
 
   @Override
   public void setPlacedBy(
-      Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-    if (!level.isClientSide && level.getBlockEntity(pos) instanceof CookieJarBlockEntity entity) {
-      CookieJarData data = CookieJarData.fromItemStack(stack);
+      Level level,
+      BlockPos blockPos,
+      BlockState blockState,
+      LivingEntity placer,
+      ItemStack itemStack) {
+    if (!level.isClientSide()
+        && level.getBlockEntity(blockPos) instanceof CookieJarBlockEntity entity) {
+      CookieJarData data = CookieJarData.fromItemStack(itemStack);
       for (int i = 0; i < data.items().size(); i++) {
         entity.setItem(i, data.items().get(i));
       }

@@ -19,13 +19,11 @@
 
 package de.markusbordihn.cookiescandyandcakes.client.renderer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.markusbordihn.cookiescandyandcakes.item.BaseCandy;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +32,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class CandyChargeOverlay implements LayeredDraw.Layer {
+public class CandyChargeOverlay {
 
   private static final int BAR_WIDTH = 120;
   private static final int BAR_HEIGHT = 10;
@@ -67,9 +65,6 @@ public class CandyChargeOverlay implements LayeredDraw.Layer {
     if (shouldEatDirectly(minecraft.player)) {
       return;
     }
-
-    RenderSystem.enableBlend();
-    RenderSystem.defaultBlendFunc();
 
     float progress;
     Component text;
@@ -116,8 +111,6 @@ public class CandyChargeOverlay implements LayeredDraw.Layer {
     int textY = y - font.lineHeight - 2;
     guiGraphics.drawString(font, text, textX + 1, textY + 1, TEXT_SHADOW_COLOR, false);
     guiGraphics.drawString(font, text, textX, textY, TEXT_COLOR, false);
-
-    RenderSystem.disableBlend();
   }
 
   private static boolean shouldEatDirectly(final Player player) {
@@ -139,8 +132,7 @@ public class CandyChargeOverlay implements LayeredDraw.Layer {
         && !player.level().getBlockState(hitResult.getBlockPos()).isAir();
   }
 
-  @Override
-  public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+  public static void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
     renderCandyChargeBar(guiGraphics, Minecraft.getInstance());
   }
 }

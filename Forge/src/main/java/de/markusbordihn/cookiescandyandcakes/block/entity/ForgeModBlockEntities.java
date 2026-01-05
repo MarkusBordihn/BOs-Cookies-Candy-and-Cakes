@@ -23,13 +23,16 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.ForgeModBlocks;
 import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockEntityTypes;
+import java.util.Set;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeModBlockEntities {
 
   public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
@@ -41,24 +44,20 @@ public class ForgeModBlockEntities {
           BLOCK_ENTITY_TYPES.register(
               PumpkinHeadCookieJarBlock.ID,
               () ->
-                  BlockEntityType.Builder.of(
-                          CookieJarBlockEntity::new,
+                  new BlockEntityType<>(
+                      CookieJarBlockEntity::new,
+                      Set.of(
                           ForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(),
                           ForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(),
                           ForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(),
-                          ForgeModBlocks.TNT_COOKIE_JAR.get())
-                      .build(null));
+                          ForgeModBlocks.TNT_COOKIE_JAR.get())));
 
   private ForgeModBlockEntities() {}
 
-  public static void register(final IEventBus eventBus) {
-    BLOCK_ENTITY_TYPES.register(eventBus);
-
-    eventBus.addListener(
-        (RegisterEvent event) -> {
-          if (event.getRegistryKey().equals(ForgeRegistries.BLOCK_ENTITY_TYPES.getRegistryKey())) {
-            ModBlockEntityTypes.setCookieJar(COOKIE_JAR_BLOCK_ENTITY.get());
-          }
-        });
+  @SubscribeEvent
+  public static void onRegister(RegisterEvent event) {
+    if (event.getRegistryKey().equals(ForgeRegistries.BLOCK_ENTITY_TYPES.getRegistryKey())) {
+      ModBlockEntityTypes.setCookieJar(COOKIE_JAR_BLOCK_ENTITY.get());
+    }
   }
 }

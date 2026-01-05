@@ -19,29 +19,40 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
-import java.util.List;
+import de.markusbordihn.cookiescandyandcakes.Constants;
+import de.markusbordihn.cookiescandyandcakes.data.gingerbread.GingerbreadType;
+import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class GingerbreadItem extends Item {
 
-  public GingerbreadItem() {
+  public GingerbreadItem(GingerbreadType gingerbreadType) {
     super(
         new Item.Properties()
-            .food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).build()));
+            .food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).build())
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, gingerbreadType.getId()))));
   }
 
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    tooltipComponents.add(
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
   }
 }

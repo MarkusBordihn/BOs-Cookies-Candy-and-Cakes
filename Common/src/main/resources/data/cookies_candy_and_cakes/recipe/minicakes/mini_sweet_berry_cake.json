@@ -7,21 +7,11 @@
     " EB"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    },
-    "E": {
-      "item": "minecraft:egg"
-    },
-    "B": {
-      "item": "minecraft:sweet_berries"
-    }
+    "S": "minecraft:sugar",
+    "W": "minecraft:wheat",
+    "M": "minecraft:milk_bucket",
+    "E": "minecraft:egg",
+    "B": "minecraft:sweet_berries"
   },
   "result": {
     "count": 3,

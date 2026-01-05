@@ -23,7 +23,9 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModEntityTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 
@@ -32,12 +34,15 @@ public class FabricModEntityTypes {
   public static final EntityType<ThrownCandy> THROWN_CANDY =
       Registry.register(
           BuiltInRegistries.ENTITY_TYPE,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "thrown_candy"),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "thrown_candy"),
           EntityType.Builder.<ThrownCandy>of(ThrownCandy::new, MobCategory.MISC)
               .sized(0.25F, 0.25F)
               .clientTrackingRange(4)
               .updateInterval(10)
-              .build("thrown_candy"));
+              .build(
+                  ResourceKey.create(
+                      Registries.ENTITY_TYPE,
+                      Identifier.fromNamespaceAndPath(Constants.MOD_ID, "thrown_candy"))));
 
   private FabricModEntityTypes() {}
 

@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "T": {
-      "item": "cookies_candy_and_cakes:gingerbread_tile"
-    }
+    "T": "cookies_candy_and_cakes:gingerbread_tile"
   },
   "pattern": [
     "TT",

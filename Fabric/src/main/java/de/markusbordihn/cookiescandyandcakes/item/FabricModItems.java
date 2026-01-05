@@ -33,7 +33,7 @@ import de.markusbordihn.cookiescandyandcakes.registry.ModItems;
 import de.markusbordihn.cookiescandyandcakes.tabs.ModCreativeTabs;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 
@@ -42,14 +42,13 @@ public class FabricModItems {
   public static final CreativeModeTab COOKIES_TAB =
       Registry.register(
           BuiltInRegistries.CREATIVE_MODE_TAB,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, ModCreativeTabs.COOKIES_TAB_ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, ModCreativeTabs.COOKIES_TAB_ID),
           ModCreativeTabs.createCookiesTab().build());
 
   public static final CreativeModeTab SPECIAL_COOKIES_TAB =
       Registry.register(
           BuiltInRegistries.CREATIVE_MODE_TAB,
-          ResourceLocation.fromNamespaceAndPath(
-              Constants.MOD_ID, ModCreativeTabs.SPECIAL_COOKIES_TAB_ID),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, ModCreativeTabs.SPECIAL_COOKIES_TAB_ID),
           ModCreativeTabs.createSpecialCookiesTab().build());
 
   static {
@@ -167,63 +166,63 @@ public class FabricModItems {
   private static void registerCookie(final CookieType cookieType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, cookieType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, cookieType.getId()),
         item);
   }
 
   private static void registerMiniCake(final MiniCakeType miniCakeType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, miniCakeType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, miniCakeType.getId()),
         item);
   }
 
   private static void registerCandy(final CandyType candyType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, candyType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, candyType.getId()),
         item);
   }
 
   private static void registerMold(final MoldType moldType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, moldType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, moldType.getId()),
         item);
   }
 
   private static void registerTool(final ToolType toolType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, toolType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, toolType.getId()),
         item);
   }
 
   private static void registerIngredient(final IngredientType ingredientType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, ingredientType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, ingredientType.getId()),
         item);
   }
 
   private static void registerFormCutter(final FormCutterType formCutterType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, formCutterType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, formCutterType.getId()),
         item);
   }
 
   private static void registerBakingTray(final BakingTrayType bakingTrayType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, bakingTrayType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, bakingTrayType.getId()),
         item);
   }
 
   private static void registerGingerbread(final GingerbreadType gingerbreadType, final Item item) {
     Registry.register(
         BuiltInRegistries.ITEM,
-        ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, gingerbreadType.getId()),
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, gingerbreadType.getId()),
         item);
   }
 }

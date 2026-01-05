@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:milk_bucket"
-    },
-    {
-      "item": "minecraft:cocoa_beans"
-    },
-    {
-      "item": "cookies_candy_and_cakes:chocolate_mold"
-    }
+    "minecraft:sugar",
+    "minecraft:milk_bucket",
+    "minecraft:cocoa_beans",
+    "cookies_candy_and_cakes:chocolate_mold"
   ],
   "result": {
     "id": "cookies_candy_and_cakes:chocolate",

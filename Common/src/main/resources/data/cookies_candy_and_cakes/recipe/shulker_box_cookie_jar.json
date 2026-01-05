@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "C": {
-      "tag": "cookies_candy_and_cakes:cookies"
-    },
-    "W": {
-      "tag": "minecraft:wooden_slabs"
-    },
-    "S": {
-      "item": "minecraft:shulker_box"
-    }
+    "C": "#cookies_candy_and_cakes:cookies",
+    "W": "#minecraft:wooden_slabs",
+    "S": "minecraft:shulker_box"
   },
   "result": {
     "id": "cookies_candy_and_cakes:shulker_box_cookie_jar",

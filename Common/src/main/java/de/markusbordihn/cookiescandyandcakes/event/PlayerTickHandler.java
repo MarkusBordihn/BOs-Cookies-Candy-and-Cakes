@@ -31,14 +31,14 @@ public class PlayerTickHandler {
   private PlayerTickHandler() {}
 
   public static void onServerPlayerTick(ServerPlayer player) {
-    if (player != null && !player.level().isClientSide) {
+    if (player != null && !player.level().isClientSide()) {
       CookieServerEffectManager.tickPlayer(player);
       CandyServerEffectManager.tickPlayer(player);
     }
   }
 
   public static void onClientPlayerTick(LocalPlayer player) {
-    if (player != null && player.level().isClientSide) {
+    if (player != null && player.level().isClientSide()) {
       CookieClientEffectManager.tickPlayer(player);
       CandyClientEffectManager.tickPlayer(player);
     }

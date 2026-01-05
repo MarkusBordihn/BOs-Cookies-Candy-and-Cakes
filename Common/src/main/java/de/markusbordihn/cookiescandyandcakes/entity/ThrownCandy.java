@@ -30,7 +30,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -48,8 +48,9 @@ public class ThrownCandy extends ThrowableItemProjectile {
   public ThrownCandy(
       final EntityType<? extends ThrownCandy> entityType,
       final Level level,
-      final LivingEntity shooter) {
-    super(entityType, shooter, level);
+      final LivingEntity shooter,
+      final ItemStack itemStack) {
+    super(entityType, shooter, level, itemStack);
   }
 
   @Override
@@ -60,7 +61,8 @@ public class ThrownCandy extends ThrowableItemProjectile {
   @Override
   protected void onHitEntity(EntityHitResult entityHitResult) {
     super.onHitEntity(entityHitResult);
-    if (!this.level().isClientSide && entityHitResult.getEntity() instanceof LivingEntity target) {
+    if (!this.level().isClientSide()
+        && entityHitResult.getEntity() instanceof LivingEntity target) {
       boolean hasEffect = applyCandyEffect(target);
       Vec3 location = entityHitResult.getLocation();
       spawnImpactEffects(location);
@@ -75,7 +77,7 @@ public class ThrownCandy extends ThrowableItemProjectile {
   @Override
   protected void onHit(HitResult hitResult) {
     super.onHit(hitResult);
-    if (!this.level().isClientSide) {
+    if (!this.level().isClientSide()) {
       this.level().broadcastEntityEvent(this, (byte) 3);
       if (hitResult instanceof BlockHitResult blockHitResult) {
         BlockPos placePos = blockHitResult.getBlockPos().relative(blockHitResult.getDirection());
@@ -114,7 +116,7 @@ public class ThrownCandy extends ThrowableItemProjectile {
 
   private void dropDefaultItem(final Level level, final BlockPos blockPos) {
     ItemStack itemStack = this.getItem();
-    if (itemStack == null || itemStack.isEmpty()) {
+    if (itemStack.isEmpty()) {
       return;
     }
     ItemEntity droppedItem =

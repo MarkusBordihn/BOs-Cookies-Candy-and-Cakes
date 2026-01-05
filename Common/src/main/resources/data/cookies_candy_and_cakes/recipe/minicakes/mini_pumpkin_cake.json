@@ -7,21 +7,11 @@
     " EP"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    },
-    "E": {
-      "item": "minecraft:egg"
-    },
-    "P": {
-      "item": "minecraft:pumpkin"
-    }
+    "S": "minecraft:sugar",
+    "W": "minecraft:wheat",
+    "M": "minecraft:milk_bucket",
+    "E": "minecraft:egg",
+    "P": "minecraft:pumpkin"
   },
   "result": {
     "id": "cookies_candy_and_cakes:mini_pumpkin_cake",

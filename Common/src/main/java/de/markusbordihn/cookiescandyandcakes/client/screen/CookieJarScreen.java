@@ -19,18 +19,18 @@
 
 package de.markusbordihn.cookiescandyandcakes.client.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import de.markusbordihn.cookiescandyandcakes.menu.CookieJarMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class CookieJarScreen extends AbstractContainerScreen<CookieJarMenu> {
 
-  private static final ResourceLocation TEXTURE_INVENTORY =
-      ResourceLocation.withDefaultNamespace("textures/gui/container/generic_54.png");
+  private static final Identifier TEXTURE_INVENTORY =
+      Identifier.withDefaultNamespace("textures/gui/container/generic_54.png");
 
   public CookieJarScreen(CookieJarMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
@@ -43,20 +43,48 @@ public class CookieJarScreen extends AbstractContainerScreen<CookieJarMenu> {
     int x = (width - imageWidth) / 2;
     int y = (height - imageHeight) / 2;
 
-    // Render the background texture
-    RenderSystem.setShaderTexture(0, TEXTURE_INVENTORY);
-    guiGraphics.blit(TEXTURE_INVENTORY, x, y, 0, 0, imageWidth, 3 * 18 + 17);
+    // Render the background texture - top part
+    guiGraphics.blit(
+        RenderPipelines.GUI_TEXTURED,
+        TEXTURE_INVENTORY,
+        x,
+        y,
+        0,
+        0,
+        imageWidth,
+        3 * 18 + 17,
+        256,
+        256);
 
     // Middle part
     int middleY = y + 3 * 18 + 17;
     int fillHeight = 13;
     for (int i = 0; i < 4; i++) {
       guiGraphics.blit(
-          TEXTURE_INVENTORY, x, middleY + i * fillHeight, 0, 4, imageWidth, fillHeight);
+          RenderPipelines.GUI_TEXTURED,
+          TEXTURE_INVENTORY,
+          x,
+          middleY + i * fillHeight,
+          0,
+          4,
+          imageWidth,
+          fillHeight,
+          256,
+          256);
     }
 
     // Bottom part
-    guiGraphics.blit(TEXTURE_INVENTORY, x, y + 3 * 18 + 17 + 50, 0, 126, imageWidth, 96);
+    guiGraphics.blit(
+        RenderPipelines.GUI_TEXTURED,
+        TEXTURE_INVENTORY,
+        x,
+        y + 3 * 18 + 17 + 50,
+        0,
+        126,
+        imageWidth,
+        96,
+        256,
+        256);
   }
 
   @Override

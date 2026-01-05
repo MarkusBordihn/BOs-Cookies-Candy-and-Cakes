@@ -21,11 +21,12 @@ package de.markusbordihn.cookiescandyandcakes.item.variants;
 
 import de.markusbordihn.cookiescandyandcakes.data.cookies.CookieType;
 import de.markusbordihn.cookiescandyandcakes.item.BaseCookie;
-import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
 public class NormalCookie extends BaseCookie {
 
@@ -34,17 +35,18 @@ public class NormalCookie extends BaseCookie {
   }
 
   @Override
-  public Component getName(ItemStack stack) {
-    return Component.translatable(this.getDescriptionId(stack));
+  public Component getName(ItemStack itemStack) {
+    return Component.translatable(itemStack.getItem().getDescriptionId());
   }
 
   @Override
   public void appendHoverText(
       ItemStack itemStack,
-      TooltipContext context,
-      List<Component> tooltipComponents,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
       TooltipFlag tooltipFlag) {
-    tooltipComponents.add(
+    tooltipConsumer.accept(
         Component.translatable(this.getDescriptionId() + ".desc")
             .withStyle(ChatFormatting.DARK_GRAY));
   }

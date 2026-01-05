@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "C": {
-      "tag": "cookies_candy_and_cakes:cookies"
-    },
-    "W": {
-      "tag": "minecraft:wooden_slabs"
-    },
-    "T": {
-      "item": "minecraft:tnt"
-    }
+    "C": "#cookies_candy_and_cakes:cookies",
+    "W": "#minecraft:wooden_slabs",
+    "T": "minecraft:tnt"
   },
   "result": {
     "id": "cookies_candy_and_cakes:tnt_cookie_jar",

@@ -51,7 +51,7 @@ public class CookiesCandyAndCakes {
     Constants.CONFIG_DIR = FMLPaths.CONFIGDIR.get();
 
     log.info("{} Configuration ...", Constants.LOG_REGISTER_PREFIX);
-    Config.register(FMLEnvironment.dist == Dist.DEDICATED_SERVER);
+    Config.register(FMLEnvironment.getDist() == Dist.DEDICATED_SERVER);
 
     log.info("{} Menu Manager ...", Constants.LOG_REGISTER_PREFIX);
     MenuManager.setMenuOpener(new NeoForgeMenuOpener());

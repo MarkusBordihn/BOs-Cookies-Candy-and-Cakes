@@ -22,6 +22,8 @@ package de.markusbordihn.cookiescandyandcakes.entity;
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModEntityTypes;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
@@ -36,12 +38,17 @@ public class NeoForgeModEntityTypes {
   public static final DeferredHolder<EntityType<?>, EntityType<ThrownCandy>> THROWN_CANDY =
       ENTITY_TYPES.register(
           "thrown_candy",
-          () ->
-              EntityType.Builder.<ThrownCandy>of(ThrownCandy::new, MobCategory.MISC)
-                  .sized(0.25F, 0.25F)
-                  .clientTrackingRange(4)
-                  .updateInterval(10)
-                  .build("thrown_candy"));
+          () -> {
+            ResourceKey<EntityType<?>> key =
+                ResourceKey.create(
+                    Registries.ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, "thrown_candy"));
+            return EntityType.Builder.<ThrownCandy>of(ThrownCandy::new, MobCategory.MISC)
+                .sized(0.25F, 0.25F)
+                .clientTrackingRange(4)
+                .updateInterval(10)
+                .build(key);
+          });
 
   static {
     ModEntityTypes.THROWN_CANDY = () -> THROWN_CANDY.get();

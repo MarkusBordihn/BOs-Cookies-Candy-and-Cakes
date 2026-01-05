@@ -7,15 +7,9 @@
     "CFE"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    },
+    "S": "minecraft:sugar",
+    "W": "minecraft:wheat",
+    "M": "minecraft:milk_bucket",
     "F": {
       "item": "cookies_candy_and_cakes:mini_cake_mold",
       "components": {
@@ -24,12 +18,8 @@
         }
       }
     },
-    "E": {
-      "item": "minecraft:egg"
-    },
-    "C": {
-      "item": "minecraft:carrot"
-    }
+    "E": "minecraft:egg",
+    "C": "minecraft:carrot"
   },
   "result": {
     "id": "cookies_candy_and_cakes:mini_carrot_cake",

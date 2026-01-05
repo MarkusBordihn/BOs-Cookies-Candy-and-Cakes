@@ -7,15 +7,9 @@
     " W "
   ],
   "key": {
-    "C": {
-      "tag": "cookies_candy_and_cakes:cookies"
-    },
-    "W": {
-      "tag": "minecraft:wooden_slabs"
-    },
-    "S": {
-      "item": "minecraft:skeleton_skull"
-    }
+    "C": "#cookies_candy_and_cakes:cookies",
+    "W": "#minecraft:wooden_slabs",
+    "S": "minecraft:skeleton_skull"
   },
   "result": {
     "id": "cookies_candy_and_cakes:skeleton_head_cookie_jar",

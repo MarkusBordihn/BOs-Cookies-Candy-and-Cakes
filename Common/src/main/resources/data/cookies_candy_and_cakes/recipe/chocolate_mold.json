@@ -6,9 +6,7 @@
     "NNN"
   ],
   "key": {
-    "N": {
-      "item": "minecraft:iron_nugget"
-    }
+    "N": "minecraft:iron_nugget"
   },
   "result": {
     "id": "cookies_candy_and_cakes:chocolate_mold",

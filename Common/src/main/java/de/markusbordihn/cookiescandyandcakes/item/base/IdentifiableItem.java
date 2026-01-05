@@ -57,7 +57,7 @@ public interface IdentifiableItem<T> {
   }
 
   default void onConsume(final LivingEntity entity) {
-    if (entity instanceof Player && entity.level().isClientSide) {
+    if (entity instanceof Player && entity.level().isClientSide()) {
       markAsIdentified(getItemType());
     }
   }

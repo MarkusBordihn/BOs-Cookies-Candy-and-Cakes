@@ -22,9 +22,7 @@ package de.markusbordihn.cookiescandyandcakes.block.entity;
 import de.markusbordihn.cookiescandyandcakes.data.cookiejar.CookieJarData;
 import de.markusbordihn.cookiescandyandcakes.menu.CookieJarMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
@@ -35,6 +33,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class CookieJarBlockEntity extends BlockEntity implements Container, MenuProvider {
 
@@ -128,31 +128,30 @@ public class CookieJarBlockEntity extends BlockEntity implements Container, Menu
     setChanged();
   }
 
-  @Override
-  public void saveToItem(ItemStack itemStack, HolderLookup.Provider registries) {
-    super.saveToItem(itemStack, registries);
+  public void saveToItem(ItemStack itemStack) {
     CookieJarData data = new CookieJarData(items);
     data.saveToItemStack(itemStack);
   }
 
   @Override
-  protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider registries) {
-    super.saveAdditional(compoundTag, registries);
+  protected void saveAdditional(ValueOutput valueOutput) {
+    super.saveAdditional(valueOutput);
     CookieJarData data = new CookieJarData(items);
     ItemStack tempStack = new ItemStack(this.getBlockState().getBlock());
     data.saveToItemStack(tempStack);
-    compoundTag.put(COOKIE_JAR_DATA_TAG, tempStack.save(registries));
+    valueOutput.store(COOKIE_JAR_DATA_TAG, ItemStack.CODEC, tempStack);
   }
 
   @Override
-  protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider registries) {
-    super.loadAdditional(compoundTag, registries);
-    if (compoundTag.contains(COOKIE_JAR_DATA_TAG)) {
-      ItemStack tempStack =
-          ItemStack.parseOptional(registries, compoundTag.getCompound(COOKIE_JAR_DATA_TAG));
-      CookieJarData data = CookieJarData.fromItemStack(tempStack);
-      this.items = data.items();
-    }
+  protected void loadAdditional(ValueInput valueInput) {
+    super.loadAdditional(valueInput);
+    valueInput
+        .read(COOKIE_JAR_DATA_TAG, ItemStack.CODEC)
+        .ifPresent(
+            tempStack -> {
+              CookieJarData data = CookieJarData.fromItemStack(tempStack);
+              this.items = data.items();
+            });
   }
 
   public NonNullList<ItemStack> getItems() {

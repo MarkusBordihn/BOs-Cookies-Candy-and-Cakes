@@ -26,11 +26,14 @@ import de.markusbordihn.cookiescandyandcakes.item.base.BaseSpecialCookie;
 import de.markusbordihn.cookiescandyandcakes.item.base.IdentifiableCookie;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class MysticCookie extends BaseSpecialCookie implements IdentifiableCookie {
 
@@ -46,7 +49,7 @@ public class MysticCookie extends BaseSpecialCookie implements IdentifiableCooki
   @Override
   public ItemStack finishUsingItem(
       final ItemStack itemStack, final Level level, final LivingEntity entity) {
-    if (!level.isClientSide) {
+    if (!level.isClientSide()) {
       applySpecialEffects(level, entity);
     }
     return super.finishUsingItem(itemStack, level, entity);
@@ -65,11 +68,12 @@ public class MysticCookie extends BaseSpecialCookie implements IdentifiableCooki
   private void spawnLightningIfNeeded(
       final Level level, final LivingEntity entity, final SpecialItemEffect effect) {
     if (level.random.nextFloat() < effect.lightningChance()) {
-      LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(level);
+      LightningBolt lightning =
+          EntityType.LIGHTNING_BOLT.create(level, EntitySpawnReason.MOB_SUMMONED);
       if (lightning == null) {
         return;
       }
-      lightning.moveTo(entity.getX(), entity.getY(), entity.getZ());
+      lightning.move(MoverType.SELF, new Vec3(entity.getX(), entity.getY(), entity.getZ()));
       lightning.setVisualOnly(true);
       level.addFreshEntity(lightning);
     }

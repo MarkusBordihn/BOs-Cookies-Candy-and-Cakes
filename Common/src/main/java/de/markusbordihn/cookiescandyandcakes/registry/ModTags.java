@@ -21,7 +21,7 @@ package de.markusbordihn.cookiescandyandcakes.registry;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -29,12 +29,10 @@ public class ModTags {
 
   public static final TagKey<Item> COOKIE_JAR_ITEMS =
       TagKey.create(
-          Registries.ITEM,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cookie_jar_items"));
+          Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cookie_jar_items"));
 
   public static final TagKey<Item> COOKIES =
-      TagKey.create(
-          Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cookies"));
+      TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cookies"));
 
   private ModTags() {}
 }

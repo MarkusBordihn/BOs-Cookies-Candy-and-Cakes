@@ -34,7 +34,6 @@ import de.markusbordihn.cookiescandyandcakes.tabs.ModCreativeTabs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -187,9 +186,4 @@ public class ForgeModItems {
   }
 
   private ForgeModItems() {}
-
-  public static void register(final IEventBus eventBus) {
-    ITEMS.register(eventBus);
-    CREATIVE_MODE_TABS.register(eventBus);
-  }
 }

@@ -7,15 +7,9 @@
     "BFE"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    },
+    "S": "minecraft:sugar",
+    "W": "minecraft:wheat",
+    "M": "minecraft:milk_bucket",
     "F": {
       "item": "cookies_candy_and_cakes:mini_cake_mold",
       "components": {
@@ -24,12 +18,8 @@
         }
       }
     },
-    "E": {
-      "item": "minecraft:egg"
-    },
-    "B": {
-      "item": "minecraft:sweet_berries"
-    }
+    "E": "minecraft:egg",
+    "B": "minecraft:sweet_berries"
   },
   "result": {
     "count": 6,

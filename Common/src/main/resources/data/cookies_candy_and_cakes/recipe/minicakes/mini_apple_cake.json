@@ -7,21 +7,11 @@
     " EA"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "W": {
-      "item": "minecraft:wheat"
-    },
-    "M": {
-      "item": "minecraft:milk_bucket"
-    },
-    "E": {
-      "item": "minecraft:egg"
-    },
-    "A": {
-      "item": "minecraft:apple"
-    }
+    "S": "minecraft:sugar",
+    "W": "minecraft:wheat",
+    "M": "minecraft:milk_bucket",
+    "E": "minecraft:egg",
+    "A": "minecraft:apple"
   },
   "result": {
     "id": "cookies_candy_and_cakes:mini_apple_cake",

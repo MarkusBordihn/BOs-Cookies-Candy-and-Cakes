@@ -40,17 +40,17 @@ public enum CookieType {
   MELON_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.REGENERATION, 0),
   MELON_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.WITHER, 0),
   PUMPKIN_COOKIE(CookieVariant.NORMAL, null, 0),
-  PUMPKIN_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.DAMAGE_RESISTANCE, 0),
+  PUMPKIN_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.RESISTANCE, 0),
   PUMPKIN_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.WEAKNESS, 1),
   SWEET_BERRY_COOKIE(CookieVariant.NORMAL, null, 0),
-  SWEET_BERRY_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.JUMP, 2),
-  SWEET_BERRY_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.MOVEMENT_SLOWDOWN, 1),
+  SWEET_BERRY_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.JUMP_BOOST, 2),
+  SWEET_BERRY_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.SLOWNESS, 1),
   SLIME_SUGAR_COOKIE(CookieVariant.NORMAL, null, 0),
-  SLIME_SUGAR_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.JUMP, 1),
-  SLIME_SUGAR_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.MOVEMENT_SLOWDOWN, 0),
+  SLIME_SUGAR_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.JUMP_BOOST, 1),
+  SLIME_SUGAR_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.SLOWNESS, 0),
   CREEPER_CRUNCH_COOKIE(CookieVariant.NORMAL, null, 0),
-  CREEPER_CRUNCH_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.MOVEMENT_SPEED, 0),
-  CREEPER_CRUNCH_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.CONFUSION, 0) {
+  CREEPER_CRUNCH_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.SPEED, 0),
+  CREEPER_CRUNCH_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.NAUSEA, 0) {
     @Override
     public int getEffectDuration() {
       return 80;
@@ -58,7 +58,7 @@ public enum CookieType {
   },
   ELDER_GUARDIAN_COOKIE(CookieVariant.NORMAL, null, 0),
   ELDER_GUARDIAN_COOKIE_MYSTIC(CookieVariant.MYSTIC, MobEffects.WATER_BREATHING, 0),
-  ELDER_GUARDIAN_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.DIG_SLOWDOWN, 2) {
+  ELDER_GUARDIAN_COOKIE_CURSED(CookieVariant.CURSED, MobEffects.MINING_FATIGUE, 2) {
     @Override
     public int getEffectDuration() {
       return 1200;

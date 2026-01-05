@@ -23,11 +23,14 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModMenuTypes;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeModMenus {
 
   public static final DeferredRegister<MenuType<?>> MENU_TYPES =
@@ -39,12 +42,8 @@ public class ForgeModMenus {
 
   private ForgeModMenus() {}
 
-  public static void register(IEventBus eventBus) {
-    MENU_TYPES.register(eventBus);
-
-    eventBus.addListener(
-        (net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) -> {
-          ModMenuTypes.setCookieJar(COOKIE_JAR_MENU.get());
-        });
+  @SubscribeEvent
+  public static void onCommonSetup(FMLCommonSetupEvent event) {
+    event.enqueueWork(() -> ModMenuTypes.setCookieJar(COOKIE_JAR_MENU.get()));
   }
 }

@@ -21,7 +21,7 @@ package de.markusbordihn.cookiescandyandcakes.registry;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import java.util.function.Supplier;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 
 public class ModBlockItems {
@@ -37,7 +37,7 @@ public class ModBlockItems {
 
   private ModBlockItems() {}
 
-  public static ResourceLocation getBlockItemId(final String name) {
-    return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name);
+  public static Identifier getBlockItemId(final String name) {
+    return Identifier.fromNamespaceAndPath(Constants.MOD_ID, name);
   }
 }

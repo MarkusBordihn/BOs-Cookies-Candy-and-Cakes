@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "cookies_candy_and_cakes:cinnamon_stick"
-    },
-    {
-      "item": "cookies_candy_and_cakes:mortar"
-    }
+    "cookies_candy_and_cakes:cinnamon_stick",
+    "cookies_candy_and_cakes:mortar"
   ],
   "result": {
     "id": "cookies_candy_and_cakes:cinnamon_powder",

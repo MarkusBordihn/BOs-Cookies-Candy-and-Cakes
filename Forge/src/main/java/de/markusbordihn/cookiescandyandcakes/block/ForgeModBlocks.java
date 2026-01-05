@@ -22,7 +22,6 @@ package de.markusbordihn.cookiescandyandcakes.block;
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -54,8 +53,4 @@ public class ForgeModBlocks {
       BLOCKS.register("gingerbread_block", () -> ModBlocks.GINGERBREAD_BLOCK);
 
   private ForgeModBlocks() {}
-
-  public static void register(final IEventBus eventBus) {
-    BLOCKS.register(eventBus);
-  }
 }

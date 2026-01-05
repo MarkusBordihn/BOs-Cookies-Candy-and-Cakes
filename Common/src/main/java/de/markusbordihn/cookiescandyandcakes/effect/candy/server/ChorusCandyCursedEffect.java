@@ -117,8 +117,7 @@ public class ChorusCandyCursedEffect implements ServerEffectInterface {
   private boolean teleportTo(ServerLevel level, ServerPlayer player, double x, double y, double z) {
     BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(x, y, z);
 
-    while (mutablePos.getY() > level.getMinBuildHeight()
-        && level.getBlockState(mutablePos).isAir()) {
+    while (mutablePos.getY() > level.getMinY() && level.getBlockState(mutablePos).isAir()) {
       mutablePos.move(0, -1, 0);
     }
 

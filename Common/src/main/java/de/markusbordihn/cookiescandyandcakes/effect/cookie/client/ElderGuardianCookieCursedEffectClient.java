@@ -27,6 +27,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.Guardian;
@@ -98,7 +99,7 @@ public class ElderGuardianCookieCursedEffectClient implements ClientEffectInterf
     Vec3 lookDirection = player.getLookAngle();
     elderGuardianBasePos = player.position().add(lookDirection.scale(3.0)).add(0, 2.0, 0);
 
-    elderGuardian = EntityType.ELDER_GUARDIAN.create(level);
+    elderGuardian = EntityType.ELDER_GUARDIAN.create(level, EntitySpawnReason.MOB_SUMMONED);
     if (elderGuardian != null) {
       elderGuardian.setPos(elderGuardianBasePos.x, elderGuardianBasePos.y, elderGuardianBasePos.z);
       elderGuardian.setNoGravity(true);
@@ -134,7 +135,7 @@ public class ElderGuardianCookieCursedEffectClient implements ClientEffectInterf
     Vec3 lookDirection = player.getLookAngle();
     Vec3 rightDirection = new Vec3(-lookDirection.z, 0, lookDirection.x).normalize();
 
-    Guardian leftGuardian = EntityType.GUARDIAN.create(level);
+    Guardian leftGuardian = EntityType.GUARDIAN.create(level, EntitySpawnReason.MOB_SUMMONED);
     if (leftGuardian != null) {
       Vec3 leftPos = elderGuardianBasePos.add(rightDirection.scale(-4.0)).add(0, 0.5, 0);
       leftGuardian.setPos(leftPos.x, leftPos.y, leftPos.z);
@@ -146,7 +147,7 @@ public class ElderGuardianCookieCursedEffectClient implements ClientEffectInterf
       spawnDarkWaterParticles(level, leftPos);
     }
 
-    Guardian rightGuardian = EntityType.GUARDIAN.create(level);
+    Guardian rightGuardian = EntityType.GUARDIAN.create(level, EntitySpawnReason.MOB_SUMMONED);
     if (rightGuardian != null) {
       Vec3 rightPos = elderGuardianBasePos.add(rightDirection.scale(4.0)).add(0, 0.5, 0);
       rightGuardian.setPos(rightPos.x, rightPos.y, rightPos.z);

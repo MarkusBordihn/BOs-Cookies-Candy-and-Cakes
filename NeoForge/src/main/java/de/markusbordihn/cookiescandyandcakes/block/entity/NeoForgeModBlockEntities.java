@@ -40,13 +40,12 @@ public class NeoForgeModBlockEntities {
           BLOCK_ENTITY_TYPES.register(
               PumpkinHeadCookieJarBlock.ID,
               () ->
-                  BlockEntityType.Builder.of(
-                          CookieJarBlockEntity::new,
-                          NeoForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(),
-                          NeoForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(),
-                          NeoForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(),
-                          NeoForgeModBlocks.TNT_COOKIE_JAR.get())
-                      .build(null));
+                  new BlockEntityType<>(
+                      CookieJarBlockEntity::new,
+                      NeoForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(),
+                      NeoForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(),
+                      NeoForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(),
+                      NeoForgeModBlocks.TNT_COOKIE_JAR.get()));
 
   private NeoForgeModBlockEntities() {}
 

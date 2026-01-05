@@ -19,11 +19,13 @@
 
 package de.markusbordihn.cookiescandyandcakes.item.base;
 
-import java.util.List;
+import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 public interface BaseSpecialItem<T extends IdentifiableItem<?>> {
@@ -40,10 +42,12 @@ public interface BaseSpecialItem<T extends IdentifiableItem<?>> {
   }
 
   default void appendHoverText(
-      final ItemStack itemStack,
-      final List<Component> tooltipComponents,
-      final TooltipFlag tooltipFlag) {
-    tooltipComponents.add(getIdentifiable().getIdentifiedTooltip());
+      ItemStack itemStack,
+      TooltipContext tooltipContext,
+      TooltipDisplay tooltipDisplay,
+      Consumer<Component> tooltipConsumer,
+      TooltipFlag tooltipFlag) {
+    tooltipConsumer.accept(getIdentifiable().getIdentifiedTooltip());
   }
 
   default Component getName(final ItemStack itemStack) {

@@ -23,7 +23,7 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModMenuTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.inventory.MenuType;
 
@@ -32,7 +32,7 @@ public class FabricModMenus {
   public static final MenuType<CookieJarMenu> COOKIE_JAR_MENU =
       Registry.register(
           BuiltInRegistries.MENU,
-          ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "cookie_jar"),
+          Identifier.fromNamespaceAndPath(Constants.MOD_ID, "cookie_jar"),
           new MenuType<>(CookieJarMenu::new, FeatureFlagSet.of()));
 
   private FabricModMenus() {}
