@@ -9,14 +9,7 @@
   "key": {
     "S": "minecraft:sugar",
     "W": "minecraft:wheat",
-    "M": [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
+    "M": "#cookies_candy_and_cakes:mushrooms",
     "E": "minecraft:egg"
   },
   "result": {

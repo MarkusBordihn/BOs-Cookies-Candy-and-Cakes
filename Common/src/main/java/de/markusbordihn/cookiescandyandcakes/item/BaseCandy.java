@@ -65,15 +65,30 @@ public abstract class BaseCandy extends Item {
   protected final CandyType candyType;
 
   protected BaseCandy(final CandyType candyType) {
-    super(
+    this(candyType, null);
+  }
+
+  protected BaseCandy(final CandyType candyType, final Item craftRemainderItem) {
+    super(buildProperties(candyType, craftRemainderItem));
+    this.candyType = candyType;
+  }
+
+  private static Item.Properties buildProperties(
+      final CandyType candyType, final Item craftRemainderItem) {
+    Item.Properties properties =
         new Item.Properties()
             .food(buildFoodProperties(candyType))
             .stacksTo(STACK_SIZE)
             .setId(
                 ResourceKey.create(
                     Registries.ITEM,
-                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, candyType.getId()))));
-    this.candyType = candyType;
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, candyType.getId())));
+
+    if (craftRemainderItem != null) {
+      properties.craftRemainder(craftRemainderItem);
+    }
+
+    return properties;
   }
 
   protected static FoodProperties buildFoodProperties(final CandyType candyType) {

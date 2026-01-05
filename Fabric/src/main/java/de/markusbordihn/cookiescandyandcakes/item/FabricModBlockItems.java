@@ -21,10 +21,7 @@ package de.markusbordihn.cookiescandyandcakes.item;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.FabricModBlocks;
-import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.ShulkerBoxCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.SkeletonHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.TntCookieJarBlock;
+import de.markusbordihn.cookiescandyandcakes.data.cookiejar.CookieJarType;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockItems;
 import java.util.function.Supplier;
 import net.minecraft.core.Registry;
@@ -42,39 +39,35 @@ public class FabricModBlockItems {
 
   public static void register() {
     ModBlockItems.PUMPKIN_HEAD_COOKIE_JAR =
-        registerCookieJarItem(
-            PumpkinHeadCookieJarBlock.ID, FabricModBlocks.PUMPKIN_HEAD_COOKIE_JAR);
+        registerCookieJarItem(FabricModBlocks.PUMPKIN_HEAD_COOKIE_JAR, CookieJarType.PUMPKIN_HEAD);
     ModBlockItems.SHULKER_BOX_COOKIE_JAR =
-        registerCookieJarItem(ShulkerBoxCookieJarBlock.ID, FabricModBlocks.SHULKER_BOX_COOKIE_JAR);
+        registerCookieJarItem(FabricModBlocks.SHULKER_BOX_COOKIE_JAR, CookieJarType.SHULKER_BOX);
     ModBlockItems.SKELETON_HEAD_COOKIE_JAR =
         registerCookieJarItem(
-            SkeletonHeadCookieJarBlock.ID, FabricModBlocks.SKELETON_HEAD_COOKIE_JAR);
+            FabricModBlocks.SKELETON_HEAD_COOKIE_JAR, CookieJarType.SKELETON_HEAD);
     ModBlockItems.TNT_COOKIE_JAR =
-        registerCookieJarItem(TntCookieJarBlock.ID, FabricModBlocks.TNT_COOKIE_JAR);
+        registerCookieJarItem(FabricModBlocks.TNT_COOKIE_JAR, CookieJarType.TNT);
     ModBlockItems.GINGERBREAD_BLOCK =
         registerBlockItem("gingerbread_block", FabricModBlocks.GINGERBREAD_BLOCK);
   }
 
-  private static Supplier<BlockItem> registerCookieJarItem(final String id, final Block block) {
-    CookieJarItem item =
-        new CookieJarItem(
-            block,
-            new Item.Properties()
-                .setId(
-                    ResourceKey.create(
-                        Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, id))));
-    Registry.register(BuiltInRegistries.ITEM, ModBlockItems.getBlockItemId(id), item);
-    return () -> item;
+  private static Supplier<BlockItem> registerCookieJarItem(
+      final Block block, final CookieJarType cookieJarType) {
+    return registerBlockItem(cookieJarType.getId(), new CookieJarItem(block, cookieJarType));
   }
 
   private static Supplier<BlockItem> registerBlockItem(final String id, final Block block) {
-    BlockItem item =
+    return registerBlockItem(
+        id,
         new BlockItem(
             block,
             new Item.Properties()
                 .setId(
                     ResourceKey.create(
-                        Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, id))));
+                        Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, id)))));
+  }
+
+  private static Supplier<BlockItem> registerBlockItem(final String id, final BlockItem item) {
     Registry.register(BuiltInRegistries.ITEM, ModBlockItems.getBlockItemId(id), item);
     return () -> item;
   }

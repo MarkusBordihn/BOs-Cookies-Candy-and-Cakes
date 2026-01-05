@@ -3,30 +3,9 @@
   "category": "misc",
   "ingredients": [
     "cookies_candy_and_cakes:gingerbread_dough",
-    {
-      "item": "cookies_candy_and_cakes:rolling_pin",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:rolling_pin"
-        }
-      }
-    },
-    {
-      "item": "cookies_candy_and_cakes:heart_cutter",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:heart_cutter"
-        }
-      }
-    },
-    {
-      "item": "cookies_candy_and_cakes:baking_tray",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:baking_tray"
-        }
-      }
-    }
+    "cookies_candy_and_cakes:rolling_pin",
+    "cookies_candy_and_cakes:heart_cutter",
+    "cookies_candy_and_cakes:baking_tray"
   ],
   "result": {
     "count": 1,

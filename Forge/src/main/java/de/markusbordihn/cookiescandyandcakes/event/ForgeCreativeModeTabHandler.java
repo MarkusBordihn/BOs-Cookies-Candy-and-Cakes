@@ -19,17 +19,14 @@
 
 package de.markusbordihn.cookiescandyandcakes.event;
 
-import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.registry.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeCreativeModeTabHandler {
 
-  @SubscribeEvent
+  private ForgeCreativeModeTabHandler() {}
+
   public static void onBuildCreativeModeTabContents(final BuildCreativeModeTabContentsEvent event) {
     if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
       // Add basic ingredients

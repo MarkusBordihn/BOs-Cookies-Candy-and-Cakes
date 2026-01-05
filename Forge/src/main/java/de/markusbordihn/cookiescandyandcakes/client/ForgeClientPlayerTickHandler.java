@@ -11,6 +11,7 @@
  * substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -19,31 +20,23 @@
 
 package de.markusbordihn.cookiescandyandcakes.client;
 
-import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.effect.cookie.CookieClientEffectManager;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
 public class ForgeClientPlayerTickHandler {
 
   private ForgeClientPlayerTickHandler() {}
 
-  @SubscribeEvent
-  public static void onClientTick(TickEvent.ClientTickEvent event) {
-    if (event.phase == TickEvent.Phase.END) {
-      ClientPlayerTickHandler.onClientTick();
-    }
-  }
+  public static void registerClientEvents() {
+    TickEvent.ClientTickEvent.Post.BUS.addListener(event -> ClientPlayerTickHandler.onClientTick());
 
-  @SubscribeEvent
-  public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
-    if (Minecraft.getInstance().player != null) {
-      CookieClientEffectManager.removeCookieEffect(Minecraft.getInstance().player);
-    }
+    ClientPlayerNetworkEvent.LoggingOut.BUS.addListener(
+        event -> {
+          if (Minecraft.getInstance().player != null) {
+            CookieClientEffectManager.removeCookieEffect(Minecraft.getInstance().player);
+          }
+        });
   }
 }

@@ -172,7 +172,9 @@ public class ModItems {
   public static final Item TEST_CANDY = createCandyItem(CandyType.TEST_CANDY);
   public static final Item TEST_CANDY_MYSTIC = createCandyItem(CandyType.TEST_CANDY_MYSTIC);
   public static final Item TEST_CANDY_CURSED = createCandyItem(CandyType.TEST_CANDY_CURSED);
-  public static final Item APPLE_CANDY = createCandyItem(CandyType.APPLE_CANDY);
+
+  // TEST: Apple candy with candy_mold as crafting remainder
+  public static final Item APPLE_CANDY = new NormalCandy(CandyType.APPLE_CANDY, CANDY_MOLD);
   public static final Item APPLE_CANDY_MYSTIC = createCandyItem(CandyType.APPLE_CANDY_MYSTIC);
   public static final Item APPLE_CANDY_CURSED = createCandyItem(CandyType.APPLE_CANDY_CURSED);
   public static final Item CHORUS_CANDY = createCandyItem(CandyType.CHORUS_CANDY);

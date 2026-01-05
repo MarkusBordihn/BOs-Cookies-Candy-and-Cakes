@@ -17,26 +17,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.cookiescandyandcakes.registry;
+package de.markusbordihn.cookiescandyandcakes.client;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
-import java.util.function.Supplier;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.BlockItem;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ModBlockItems {
+@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+public class ClientEventHandler {
 
-  // Cookie Jar Block Items
-  public static Supplier<BlockItem> PUMPKIN_HEAD_COOKIE_JAR;
-  public static Supplier<BlockItem> SHULKER_BOX_COOKIE_JAR;
-  public static Supplier<BlockItem> SKELETON_HEAD_COOKIE_JAR;
-  public static Supplier<BlockItem> TNT_COOKIE_JAR;
+  private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  public static Supplier<BlockItem> GINGERBREAD_BLOCK;
+  @SubscribeEvent
+  public static void onClientSetup(FMLClientSetupEvent event) {
+    log.info("Initializing {} (Forge-Client) ...", Constants.MOD_NAME);
 
-  private ModBlockItems() {}
+    ClientScreens.registerScreens(event);
 
-  public static Identifier getBlockItemId(final String name) {
-    return Identifier.fromNamespaceAndPath(Constants.MOD_ID, name);
+    log.info("{} Client Events ...", Constants.LOG_REGISTER_PREFIX);
+    ForgeClientPlayerTickHandler.registerClientEvents();
   }
 }

@@ -21,22 +21,28 @@ package de.markusbordihn.cookiescandyandcakes.client;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.client.renderer.CandyChargeOverlay;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.Identifier;
 import net.minecraftforge.client.event.AddGuiOverlayLayersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.client.gui.overlay.ForgeLayer;
 
-@Mod.EventBusSubscriber(
-    modid = Constants.MOD_ID,
-    value = Dist.CLIENT,
-    bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeOverlayHandler {
 
   private ForgeOverlayHandler() {}
 
-  @SubscribeEvent
-  @SuppressWarnings("deprecation")
   public static void onAddGuiOverlayLayers(final AddGuiOverlayLayersEvent event) {
-    event.getLayeredDraw().add(new CandyChargeOverlay());
+    event
+        .getLayeredDraw()
+        .add(
+            Identifier.fromNamespaceAndPath(Constants.MOD_ID, "candy_charge_overlay"),
+            new ForgeCandyChargeOverlayLayer());
+  }
+
+  private static class ForgeCandyChargeOverlayLayer implements ForgeLayer {
+    @Override
+    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+      CandyChargeOverlay.render(guiGraphics, deltaTracker);
+    }
   }
 }

@@ -24,6 +24,7 @@ import de.markusbordihn.cookiescandyandcakes.item.BaseCandy;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -32,6 +33,10 @@ public class NormalCandy extends BaseCandy {
 
   public NormalCandy(final CandyType candyType) {
     super(candyType);
+  }
+
+  public NormalCandy(final CandyType candyType, final Item craftRemainderItem) {
+    super(candyType, craftRemainderItem);
   }
 
   @Override

@@ -19,11 +19,16 @@
 
 package de.markusbordihn.cookiescandyandcakes.item;
 
+import de.markusbordihn.cookiescandyandcakes.Constants;
+import de.markusbordihn.cookiescandyandcakes.data.cookiejar.CookieJarType;
 import de.markusbordihn.cookiescandyandcakes.menu.MenuManager;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,8 +47,14 @@ import net.minecraft.world.level.block.Block;
 
 public class CookieJarItem extends BlockItem {
 
-  public CookieJarItem(Block block, Item.Properties properties) {
-    super(block, properties);
+  public CookieJarItem(Block block, CookieJarType cookieJarType) {
+    super(
+        block,
+        new Item.Properties()
+            .setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, cookieJarType.getId()))));
   }
 
   @Override

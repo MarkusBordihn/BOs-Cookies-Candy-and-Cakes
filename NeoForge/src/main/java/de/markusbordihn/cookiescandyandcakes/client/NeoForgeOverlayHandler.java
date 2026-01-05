@@ -21,7 +21,6 @@ package de.markusbordihn.cookiescandyandcakes.client;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.client.renderer.CandyChargeOverlay;
-import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -34,6 +33,6 @@ public class NeoForgeOverlayHandler {
 
   @SubscribeEvent
   public static void onRenderGui(RenderGuiEvent.Post event) {
-    CandyChargeOverlay.renderCandyChargeBar(event.getGuiGraphics(), Minecraft.getInstance());
+    CandyChargeOverlay.render(event.getGuiGraphics(), event.getPartialTick());
   }
 }

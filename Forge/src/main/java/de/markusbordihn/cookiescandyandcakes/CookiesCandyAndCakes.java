@@ -21,14 +21,22 @@ package de.markusbordihn.cookiescandyandcakes;
 
 import de.markusbordihn.cookiescandyandcakes.block.ForgeModBlocks;
 import de.markusbordihn.cookiescandyandcakes.block.entity.ForgeModBlockEntities;
+import de.markusbordihn.cookiescandyandcakes.client.ForgeOverlayHandler;
 import de.markusbordihn.cookiescandyandcakes.config.Config;
 import de.markusbordihn.cookiescandyandcakes.entity.ForgeModEntityTypes;
+import de.markusbordihn.cookiescandyandcakes.event.ForgeCreativeModeTabHandler;
+import de.markusbordihn.cookiescandyandcakes.event.ForgeMonsterLootHandler;
+import de.markusbordihn.cookiescandyandcakes.event.ForgePlayerTickHandler;
 import de.markusbordihn.cookiescandyandcakes.item.ForgeModBlockItems;
 import de.markusbordihn.cookiescandyandcakes.item.ForgeModItems;
 import de.markusbordihn.cookiescandyandcakes.menu.ForgeMenuOpener;
 import de.markusbordihn.cookiescandyandcakes.menu.ForgeModMenus;
 import de.markusbordihn.cookiescandyandcakes.menu.MenuManager;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.AddGuiOverlayLayersEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -80,8 +88,24 @@ public class CookiesCandyAndCakes {
     log.info("{} Creative Tabs ...", Constants.LOG_REGISTER_PREFIX);
     ForgeModItems.CREATIVE_MODE_TABS.register(modBusGroup);
 
-    if (FMLEnvironment.dist.isClient()) {
-      new CookiesCandyAndCakesClient(context.getModEventBus());
+    log.info("{} Server Events ...", Constants.LOG_REGISTER_PREFIX);
+    ForgePlayerTickHandler.registerServerEvents();
+    ForgeMonsterLootHandler.registerServerEvents();
+
+    // Register GAME bus events
+    log.info("{} GAME bus events ...", Constants.LOG_REGISTER_PREFIX);
+    BuildCreativeModeTabContentsEvent.BUS.addListener(
+        ForgeCreativeModeTabHandler::onBuildCreativeModeTabContents);
+
+    // Register CLIENT MOD bus events (only on client side)
+    if (FMLEnvironment.dist == Dist.CLIENT) {
+      log.info("{} Client MOD bus events ...", Constants.LOG_REGISTER_PREFIX);
+      AddGuiOverlayLayersEvent.BUS.addListener(ForgeOverlayHandler::onAddGuiOverlayLayers);
+      EntityRenderersEvent.RegisterRenderers.BUS.addListener(this::onRegisterRenderers);
     }
+  }
+
+  private void onRegisterRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+    event.registerEntityRenderer(ForgeModEntityTypes.THROWN_CANDY.get(), ThrownItemRenderer::new);
   }
 }

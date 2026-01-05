@@ -21,10 +21,7 @@ package de.markusbordihn.cookiescandyandcakes.item;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.NeoForgeModBlocks;
-import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.ShulkerBoxCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.SkeletonHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.TntCookieJarBlock;
+import de.markusbordihn.cookiescandyandcakes.data.cookiejar.CookieJarType;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockItems;
 import java.util.function.Supplier;
 import net.minecraft.core.registries.Registries;
@@ -48,31 +45,22 @@ public class NeoForgeModBlockItems {
     BLOCK_ITEMS.register(eventBus);
     ModBlockItems.PUMPKIN_HEAD_COOKIE_JAR =
         registerCookieJarItem(
-            PumpkinHeadCookieJarBlock.ID, NeoForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR);
+            NeoForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR, CookieJarType.PUMPKIN_HEAD);
     ModBlockItems.SHULKER_BOX_COOKIE_JAR =
-        registerCookieJarItem(
-            ShulkerBoxCookieJarBlock.ID, NeoForgeModBlocks.SHULKER_BOX_COOKIE_JAR);
-    ModBlockItems.TNT_COOKIE_JAR =
-        registerCookieJarItem(TntCookieJarBlock.ID, NeoForgeModBlocks.TNT_COOKIE_JAR);
-    ModBlockItems.GINGERBREAD_BLOCK =
-        registerBlockItem("gingerbread_block", NeoForgeModBlocks.GINGERBREAD_BLOCK);
+        registerCookieJarItem(NeoForgeModBlocks.SHULKER_BOX_COOKIE_JAR, CookieJarType.SHULKER_BOX);
     ModBlockItems.SKELETON_HEAD_COOKIE_JAR =
         registerCookieJarItem(
-            SkeletonHeadCookieJarBlock.ID, NeoForgeModBlocks.SKELETON_HEAD_COOKIE_JAR);
+            NeoForgeModBlocks.SKELETON_HEAD_COOKIE_JAR, CookieJarType.SKELETON_HEAD);
+    ModBlockItems.TNT_COOKIE_JAR =
+        registerCookieJarItem(NeoForgeModBlocks.TNT_COOKIE_JAR, CookieJarType.TNT);
+    ModBlockItems.GINGERBREAD_BLOCK =
+        registerBlockItem("gingerbread_block", NeoForgeModBlocks.GINGERBREAD_BLOCK);
   }
 
   private static Supplier<BlockItem> registerCookieJarItem(
-      final String id, final DeferredHolder<Block, ? extends Block> blockHolder) {
+      final DeferredHolder<Block, ? extends Block> blockHolder, final CookieJarType cookieJarType) {
     return BLOCK_ITEMS.register(
-        id,
-        () ->
-            new CookieJarItem(
-                blockHolder.get(),
-                new Item.Properties()
-                    .setId(
-                        ResourceKey.create(
-                            Registries.ITEM,
-                            Identifier.fromNamespaceAndPath(Constants.MOD_ID, id)))));
+        cookieJarType.getId(), () -> new CookieJarItem(blockHolder.get(), cookieJarType));
   }
 
   private static Supplier<BlockItem> registerBlockItem(

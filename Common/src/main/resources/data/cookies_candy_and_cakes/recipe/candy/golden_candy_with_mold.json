@@ -10,14 +10,7 @@
     "S": "minecraft:sugar",
     "B": "minecraft:gold_ingot",
     "W": "minecraft:water_bucket",
-    "M": {
-      "item": "cookies_candy_and_cakes:candy_mold",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:candy_mold"
-        }
-      }
-    }
+    "M": "cookies_candy_and_cakes:candy_mold"
   },
   "result": {
     "id": "cookies_candy_and_cakes:golden_candy",

@@ -21,49 +21,76 @@ package de.markusbordihn.cookiescandyandcakes.item;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.block.ForgeModBlocks;
-import de.markusbordihn.cookiescandyandcakes.block.PumpkinHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.ShulkerBoxCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.SkeletonHeadCookieJarBlock;
-import de.markusbordihn.cookiescandyandcakes.block.TntCookieJarBlock;
+import de.markusbordihn.cookiescandyandcakes.data.cookiejar.CookieJarType;
 import de.markusbordihn.cookiescandyandcakes.registry.ModBlockItems;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ForgeModBlockItems {
 
   public static final DeferredRegister<Item> BLOCK_ITEMS =
       DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
 
-  static {
-    ModBlockItems.PUMPKIN_HEAD_COOKIE_JAR =
-        BLOCK_ITEMS.register(
-            PumpkinHeadCookieJarBlock.ID,
-            () ->
-                new CookieJarItem(
-                    ForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(), new Item.Properties()));
-    ModBlockItems.SHULKER_BOX_COOKIE_JAR =
-        BLOCK_ITEMS.register(
-            ShulkerBoxCookieJarBlock.ID,
-            () ->
-                new CookieJarItem(
-                    ForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(), new Item.Properties()));
-    ModBlockItems.SKELETON_HEAD_COOKIE_JAR =
-        BLOCK_ITEMS.register(
-            SkeletonHeadCookieJarBlock.ID,
-            () ->
-                new CookieJarItem(
-                    ForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(), new Item.Properties()));
-    ModBlockItems.TNT_COOKIE_JAR =
-        BLOCK_ITEMS.register(
-            TntCookieJarBlock.ID,
-            () -> new CookieJarItem(ForgeModBlocks.TNT_COOKIE_JAR.get(), new Item.Properties()));
-    ModBlockItems.GINGERBREAD_BLOCK =
-        BLOCK_ITEMS.register(
-            "gingerbread_block",
-            () -> new BlockItem(ForgeModBlocks.GINGERBREAD_BLOCK.get(), new Item.Properties()));
-  }
+  public static final RegistryObject<BlockItem> PUMPKIN_HEAD_COOKIE_JAR =
+      BLOCK_ITEMS.register(
+          CookieJarType.PUMPKIN_HEAD.getId(),
+          () ->
+              new CookieJarItem(
+                  ForgeModBlocks.PUMPKIN_HEAD_COOKIE_JAR.get(), CookieJarType.PUMPKIN_HEAD));
+
+  public static final RegistryObject<BlockItem> SHULKER_BOX_COOKIE_JAR =
+      BLOCK_ITEMS.register(
+          CookieJarType.SHULKER_BOX.getId(),
+          () ->
+              new CookieJarItem(
+                  ForgeModBlocks.SHULKER_BOX_COOKIE_JAR.get(), CookieJarType.SHULKER_BOX));
+
+  public static final RegistryObject<BlockItem> SKELETON_HEAD_COOKIE_JAR =
+      BLOCK_ITEMS.register(
+          CookieJarType.SKELETON_HEAD.getId(),
+          () ->
+              new CookieJarItem(
+                  ForgeModBlocks.SKELETON_HEAD_COOKIE_JAR.get(), CookieJarType.SKELETON_HEAD));
+
+  public static final RegistryObject<BlockItem> TNT_COOKIE_JAR =
+      BLOCK_ITEMS.register(
+          CookieJarType.TNT.getId(),
+          () -> new CookieJarItem(ForgeModBlocks.TNT_COOKIE_JAR.get(), CookieJarType.TNT));
+
+  public static final RegistryObject<BlockItem> GINGERBREAD_BLOCK =
+      BLOCK_ITEMS.register(
+          "gingerbread_block",
+          () ->
+              new BlockItem(
+                  ForgeModBlocks.GINGERBREAD_BLOCK.get(),
+                  new Item.Properties()
+                      .setId(
+                          ResourceKey.create(
+                              Registries.ITEM,
+                              Identifier.fromNamespaceAndPath(
+                                  Constants.MOD_ID, "gingerbread_block")))));
 
   private ForgeModBlockItems() {}
+
+  @SubscribeEvent
+  public static void onCommonSetup(FMLCommonSetupEvent event) {
+    event.enqueueWork(
+        () -> {
+          ModBlockItems.PUMPKIN_HEAD_COOKIE_JAR = PUMPKIN_HEAD_COOKIE_JAR::get;
+          ModBlockItems.SHULKER_BOX_COOKIE_JAR = SHULKER_BOX_COOKIE_JAR::get;
+          ModBlockItems.SKELETON_HEAD_COOKIE_JAR = SKELETON_HEAD_COOKIE_JAR::get;
+          ModBlockItems.TNT_COOKIE_JAR = TNT_COOKIE_JAR::get;
+          ModBlockItems.GINGERBREAD_BLOCK = GINGERBREAD_BLOCK::get;
+        });
+  }
 }

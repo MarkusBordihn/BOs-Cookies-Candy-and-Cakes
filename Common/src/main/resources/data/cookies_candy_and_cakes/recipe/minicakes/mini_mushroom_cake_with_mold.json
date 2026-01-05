@@ -9,22 +9,8 @@
   "key": {
     "S": "minecraft:sugar",
     "W": "minecraft:wheat",
-    "M": [
-      {
-        "item": "minecraft:brown_mushroom"
-      },
-      {
-        "item": "minecraft:red_mushroom"
-      }
-    ],
-    "F": {
-      "item": "cookies_candy_and_cakes:mini_cake_mold",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:mini_cake_mold"
-        }
-      }
-    },
+    "M": "#cookies_candy_and_cakes:mushrooms",
+    "F": "cookies_candy_and_cakes:mini_cake_mold",
     "E": "minecraft:egg"
   },
   "result": {

@@ -19,30 +19,28 @@
 
 package de.markusbordihn.cookiescandyandcakes.event;
 
-import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.effect.cookie.CookieServerEffectManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class ForgePlayerTickHandler {
 
   private ForgePlayerTickHandler() {}
 
-  @SubscribeEvent
-  public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-    if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer serverPlayer) {
-      PlayerTickHandler.onServerPlayerTick(serverPlayer);
-    }
-  }
+  public static void registerServerEvents() {
+    TickEvent.PlayerTickEvent.Post.BUS.addListener(
+        event -> {
+          if (event.player() instanceof ServerPlayer serverPlayer) {
+            PlayerTickHandler.onServerPlayerTick(serverPlayer);
+          }
+        });
 
-  @SubscribeEvent
-  public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
-    if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-      CookieServerEffectManager.removeCookieEffect(serverPlayer);
-    }
+    PlayerEvent.PlayerLoggedOutEvent.BUS.addListener(
+        event -> {
+          if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            CookieServerEffectManager.removeCookieEffect(serverPlayer);
+          }
+        });
   }
 }

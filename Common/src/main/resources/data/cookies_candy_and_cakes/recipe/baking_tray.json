@@ -10,6 +10,12 @@
   ],
   "result": {
     "count": 1,
-    "id": "cookies_candy_and_cakes:baking_tray"
+    "id": "cookies_candy_and_cakes:baking_tray",
+    "components": {
+      "minecraft:use_remainder": {
+        "id": "cookies_candy_and_cakes:baking_tray",
+        "count": 1
+      }
+    }
   }
 }

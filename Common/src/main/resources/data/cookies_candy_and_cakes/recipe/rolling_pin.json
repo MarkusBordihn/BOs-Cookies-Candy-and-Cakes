@@ -8,6 +8,12 @@
   ],
   "result": {
     "count": 1,
-    "id": "cookies_candy_and_cakes:rolling_pin"
+    "id": "cookies_candy_and_cakes:rolling_pin",
+    "components": {
+      "minecraft:use_remainder": {
+        "id": "cookies_candy_and_cakes:rolling_pin",
+        "count": 1
+      }
+    }
   }
 }

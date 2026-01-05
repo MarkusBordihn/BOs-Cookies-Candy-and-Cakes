@@ -19,20 +19,16 @@
 
 package de.markusbordihn.cookiescandyandcakes.event;
 
-import de.markusbordihn.cookiescandyandcakes.Constants;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class ForgeMonsterLootHandler {
 
   private ForgeMonsterLootHandler() {}
 
-  @SubscribeEvent
-  public static void onLivingDrops(LivingDropsEvent event) {
-    if (MonsterLootHandler.shouldDropSpecialCookies(event.getEntity())) {
-      event.getDrops().add(MonsterLootHandler.createSpecialCookieDrop(event.getEntity()));
-    }
+  public static void registerServerEvents() {
+    net.minecraftforge.event.entity.living.LivingDropsEvent.BUS.addListener(
+        event -> {
+          if (MonsterLootHandler.shouldDropSpecialCookies(event.getEntity())) {
+            event.getDrops().add(MonsterLootHandler.createSpecialCookieDrop(event.getEntity()));
+          }
+        });
   }
 }

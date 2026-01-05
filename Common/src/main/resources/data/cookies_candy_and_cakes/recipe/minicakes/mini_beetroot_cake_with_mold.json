@@ -10,14 +10,7 @@
     "S": "minecraft:sugar",
     "W": "minecraft:wheat",
     "M": "minecraft:milk_bucket",
-    "F": {
-      "item": "cookies_candy_and_cakes:mini_cake_mold",
-      "components": {
-        "minecraft:use_remainder": {
-          "id": "cookies_candy_and_cakes:mini_cake_mold"
-        }
-      }
-    },
+    "F": "cookies_candy_and_cakes:mini_cake_mold",
     "E": "minecraft:egg",
     "B": "minecraft:beetroot"
   },

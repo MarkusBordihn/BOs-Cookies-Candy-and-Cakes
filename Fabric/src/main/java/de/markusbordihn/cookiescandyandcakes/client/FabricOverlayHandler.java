@@ -17,26 +17,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.cookiescandyandcakes.registry;
+package de.markusbordihn.cookiescandyandcakes.client;
 
 import de.markusbordihn.cookiescandyandcakes.Constants;
-import java.util.function.Supplier;
+import de.markusbordihn.cookiescandyandcakes.client.renderer.CandyChargeOverlay;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.BlockItem;
 
-public class ModBlockItems {
+public class FabricOverlayHandler {
 
-  // Cookie Jar Block Items
-  public static Supplier<BlockItem> PUMPKIN_HEAD_COOKIE_JAR;
-  public static Supplier<BlockItem> SHULKER_BOX_COOKIE_JAR;
-  public static Supplier<BlockItem> SKELETON_HEAD_COOKIE_JAR;
-  public static Supplier<BlockItem> TNT_COOKIE_JAR;
+  private FabricOverlayHandler() {}
 
-  public static Supplier<BlockItem> GINGERBREAD_BLOCK;
-
-  private ModBlockItems() {}
-
-  public static Identifier getBlockItemId(final String name) {
-    return Identifier.fromNamespaceAndPath(Constants.MOD_ID, name);
+  public static void register() {
+    HudElementRegistry.addFirst(
+        Identifier.fromNamespaceAndPath(Constants.MOD_ID, "candy_charge_overlay"),
+        CandyChargeOverlay::render);
   }
 }
