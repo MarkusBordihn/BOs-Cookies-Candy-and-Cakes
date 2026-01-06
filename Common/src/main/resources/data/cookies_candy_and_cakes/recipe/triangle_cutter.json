@@ -11,12 +11,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "cookies_candy_and_cakes:triangle_cutter",
-    "components": {
-      "minecraft:use_remainder": {
-        "id": "cookies_candy_and_cakes:triangle_cutter",
-        "count": 1
-      }
-    }
+    "id": "cookies_candy_and_cakes:triangle_cutter"
   }
 }

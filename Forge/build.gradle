@@ -157,7 +157,6 @@ sourceSets.test {
 }
 
 // CurseForge Publishing
-// CurseForge Publishing
 if (project.hasProperty('curseforge_project_id') && project.curseforge_project_id) {
   tasks.register('curseforge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     group = 'publishing'

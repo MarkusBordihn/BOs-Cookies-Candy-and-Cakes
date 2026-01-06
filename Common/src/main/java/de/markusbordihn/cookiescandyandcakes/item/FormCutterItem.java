@@ -23,6 +23,7 @@ import de.markusbordihn.cookiescandyandcakes.Constants;
 import de.markusbordihn.cookiescandyandcakes.data.tools.FormCutterType;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -34,6 +35,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 public class FormCutterItem extends Item {
 
+  private final Identifier itemId;
+
   public FormCutterItem(FormCutterType formCutterType) {
     super(
         new Item.Properties()
@@ -42,14 +45,14 @@ public class FormCutterItem extends Item {
                 ResourceKey.create(
                     Registries.ITEM,
                     Identifier.fromNamespaceAndPath(Constants.MOD_ID, formCutterType.getId()))));
+    this.itemId = Identifier.fromNamespaceAndPath(Constants.MOD_ID, formCutterType.getId());
   }
 
-  public boolean hasCraftingRemainingItem(ItemStack stack) {
-    return true;
-  }
-
-  public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-    return itemStack.copy();
+  public ItemStack getCraftingRemainder(ItemStack itemStack) {
+    return BuiltInRegistries.ITEM
+        .getOptional(this.itemId)
+        .map(ItemStack::new)
+        .orElse(ItemStack.EMPTY);
   }
 
   @Override
